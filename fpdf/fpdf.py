@@ -144,6 +144,8 @@ class FPDF(object):
 		self.set_compression(1)
 		# Set default PDF version number
 		self.pdf_version = '1.3'
+		# Don't hide Producer field by default
+		self.hide_producer = False
 
 	@staticmethod
 	def get_page_format(format, k):
@@ -1644,7 +1646,9 @@ class FPDF(object):
 		self._out('endobj')
 
 	def _putinfo(self):
-		self._out('/Producer '+self._textstring('PyFPDF '+FPDF_VERSION+' http://pyfpdf.googlecode.com/'))
+		if not self.hide_producer:
+			self._out('/Producer '+self._textstring('PyFPDF '+FPDF_VERSION+' http://pyfpdf.googlecode.com/'))
+
 		if hasattr(self,'title'):
 			self._out('/Title '+self._textstring(self.title))
 		if hasattr(self,'subject'):
