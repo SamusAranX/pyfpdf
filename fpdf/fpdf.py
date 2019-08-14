@@ -1963,7 +1963,7 @@ class FPDF(object):
 
 	def _textstring(self, s):
 		#Format a text string
-		return '('+self._escape(s)+')'
+		return '('+self._escape(s or "")+')'
 
 	def _escape(self, s):
 		#Add \ before \, ( and )
